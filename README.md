@@ -91,15 +91,21 @@ docker ps -a
 Edit /usr/local/share/kolla-ansible/init-runonce to modify External Network (Provider) parameters:
 
 EXT_NET_CIDR='192.168.1.0/24'
+
 EXT_NET_RANGE='start=192.168.1.220,end=192.168.1.239'
+
 EXT_NET_GATEWAY='192.168.1.1'
+
 
 I have set the EXT_NET_CIDR to match my default Wifi network, connected to Internet.
 EXT_NET_RANGE is set to addresses outside of DHCP allocation range to avoid conflicts.
 
 kolla-ansible post-deploy
+
 . /etc/kolla/admin-openrc.sh
+
 cd /usr/local/share/kolla-ansible
+
 ./init-runonce
 
 Check OpenStack admin user password:
@@ -118,4 +124,4 @@ To tear down the deployment run:
 
 kolla-ansible -i all-in-one destroy --yes-i-really-really-mean-it
 
-Now you can make major modifications to globals.yml and start over with bootstrap-servers (line 52 of this file).
+Now you can make major modifications to globals.yml and start over with bootstrap-servers.
