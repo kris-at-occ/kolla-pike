@@ -14,20 +14,32 @@ In my case eth0 is connected to a switch and nothing else, while eth1 is connect
 wlan0 gives me an Internet connection and is managed by Network Connections Desktop App.
 
 Suggested shape of /etc/network/interfaces:
+
 #------------
 auto lo
+
 iface lo inet loopback
 
+
 auto eth0
+
 iface eth0 inet static
+
   address 10.0.0.11
+
   netmask 255.255.255.0
+  
   dns-nameservers 8.8.8.8
 
+
 auto eth1
+
 iface eth1 inet manual
+
   up ip link set dev eth1 up
+  
   down ip link set dev eth1 down
+  
 #------------
 
 Set eth0 address as you wish.
@@ -37,18 +49,22 @@ When you reach "Install Kolla for deployment or evaluation (around middle of the
 
 pip install kolla-ansible==5.0.2
 
+
 Clone this repository to your home directory.
 
 cp kolla-absible/aio-bm-basic.yml /etc/kolla/globals.yml
+
 
 Edit /etc/kolla/globals.yml to set Network Address to match your Environment:
 
 kolla_internal_vip_address: "10.0.0.10"  # make it an unused IP in your eth0 network
 
+
 Skip "Install Kolla for development" and "Local registry".
 Continue Installation with "Automatic host bootstrap".
 
 kolla-genpwd
+
 kolla-ansible -i all-in-one bootstrap-servers
 
 Modify /etc/systemd/system/docker.service.d/kolla.conf and restart docker daemon, as requested.
